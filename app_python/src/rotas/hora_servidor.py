@@ -10,6 +10,6 @@ router = APIRouter()
 def hora_servidor():
     try:
         hora_atual = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        return resposta_sucesso({"mensagem": f"Hora do servidor: {hora_atual}"})
+        return resposta_sucesso(f"Hora do servidor: {hora_atual}")
     except Exception as e:
         return resposta_erro(str(e))
