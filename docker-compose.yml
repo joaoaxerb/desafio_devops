@@ -28,6 +28,21 @@ services:
       - app-network
     environment:
       - REDIS_URL=redis://redis:6379
+      
+  app-go:
+    build:
+      context: ./app_go
+      dockerfile: Dockerfile
+    container_name: app-go
+    ports:
+      - "8001:8001"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - app-network
+    environment:
+      - REDIS_URL=redis://redis:6379
 
 networks:
   app-network:
