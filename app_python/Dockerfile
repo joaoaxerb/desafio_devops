@@ -2,10 +2,10 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY pyproject.toml ./
+COPY requirements.txt ./
 
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir fastapi uvicorn redis "fastapi-cache2[redis]"
+    pip install --no-cache-dir -r requirements.txt
 
 COPY src/ ./src/
 
