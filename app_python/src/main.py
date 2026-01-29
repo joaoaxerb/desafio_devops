@@ -5,6 +5,7 @@ import logging
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
+from middleware.metricas_middleware import MetricasMiddleware
 
 logging.basicConfig(
     level=logging.INFO,
@@ -19,6 +20,8 @@ app = FastAPI(
     description="API para o desafio técnico DevOps",
     version="1.0.0"
 )
+
+app.add_middleware(MetricasMiddleware)
 
 @app.on_event("startup")
 async def startup():
