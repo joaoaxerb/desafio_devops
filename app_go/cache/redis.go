@@ -6,6 +6,7 @@ import (
     "net/http"
     "time"
 
+    "github.com/joaoaxer/desafio_devops/app_go/metricas"
     "github.com/redis/go-redis/v9"
 )
 
@@ -29,22 +30,32 @@ func InitRedis() {
 
 func CacheMiddleware(next http.HandlerFunc, ttl time.Duration) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
         cacheKey := "go-cache:" + r.URL.Path
 
         // Tenta buscar do cache
         cached, err := Client.Get(Ctx, cacheKey).Result()
         if err == nil {
             // Cache hit
+            metricas.CacheHits.Inc()
             w.Header().Set("Content-Type", "application/json")
             w.Write([]byte(cached))
+
+            duration := time.Since(start).Seconds()
+            metricas.LatenciaRequisicoes.WithLabelValues(r.URL.Path).Observe(duration)
+            metricas.RequisocoesTotal.WithLabelValues(r.Method, r.URL.Path, "200").Inc()
+            
             log.Printf("Cache HIT para %s", r.URL.Path)
             return
         }
 
+         // Cache miss
+        metricas.CacheMisses.Inc()
+
         gravador := &gravadorResposta{
             ResponseWriter: w,
             corpo:          []byte{},
-            codigoStatus:   http.StatusOK, // ← INICIALIZA COM 200
+            codigoStatus:   http.StatusOK,
         }
 
         next(gravador, r)
@@ -54,6 +65,11 @@ func CacheMiddleware(next http.HandlerFunc, ttl time.Duration) http.HandlerFunc 
             Client.Set(Ctx, cacheKey, gravador.corpo, ttl)
             log.Printf("Cache MISS para %s - salvando por %v", r.URL.Path, ttl)
         }
+
+        // Registra métricas
+        duration := time.Since(start).Seconds()
+        metricas.LatenciaRequisicoes.WithLabelValues(r.URL.Path).Observe(duration)
+        metricas.RequisocoesTotal.WithLabelValues(r.Method, r.URL.Path, "200").Inc()
     }
 }
 
