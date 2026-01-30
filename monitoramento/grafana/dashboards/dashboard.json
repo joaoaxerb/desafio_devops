@@ -489,7 +489,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "avg by (job) (rate(app_latencia_requisicoes_segundos_sum[1m]) / rate(app_latencia_requisicoes_segundos_count[1m])) * 1000",
+          "expr": "avg by (job) (rate(app_latencia_requisicoes_segundos_sum[$__rate_interval]) / rate(app_latencia_requisicoes_segundos_count[$__rate_interval])) * 1000",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
