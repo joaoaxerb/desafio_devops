@@ -27,15 +27,20 @@ Sistema distribuído com duas aplicações independentes que compartilham uma ca
 
 ##  Arquitetura
 
+<img width="2964" height="2440" alt="image" src="https://github.com/user-attachments/assets/54a73c17-d7e3-4ccc-9a14-c8bf2b3cfab2" />
+
+
 #  Tecnologias 
 
 ## Backend 
 - **Python**: FastAPI, fastapi-cache2, Redis, Prometheus Client, Uvicorn 
-- **Go**: net/http, go-redis, Prometheus Client Golang ## Infraestrutura 
+- **Go**: net/http, go-redis, Prometheus Client Golang
+## Infraestrutura 
 - **Docker & Docker Compose**: Orquestração de containers 
 - **Redis**: Cache in-memory 
 - **Prometheus**: Time-series database para métricas 
-- **Grafana**: Plataforma de visualização ## DevOps 
+- **Grafana**: Plataforma de visualização
+## DevOps 
 - **GitHub Actions**: CI/CD pipeline 
 - **Docker Hub/GHCR**: Registry de imagens ---
 
@@ -113,10 +118,13 @@ O dashboard **"Monitoramento - Desafio DevOps Globo"** exibe:
 - **Prometheus UI**: [http://localhost:9090](http://localhost:9090) 
 - **Grafana**: [http://localhost:3000](http://localhost:3000)
 
-## CI/CD Pipeline automatizado via **GitHub Actions** com 3 jobs principais: 
-## 1️ Lint - Validação de código **Python** com [Ruff](https://github.com/astral-sh/ruff) 
+## CI/CD Pipeline 
+Automatizado via **GitHub Actions** com 3 jobs principais: 
+## 1️ Lint 
+- Validação de código **Python** com [Ruff](https://github.com/astral-sh/ruff) 
 - Linting **Go** com [golangci-lint](https://golangci-lint.run/) 
-## 2️ Security - **SAST** com [CodeQL](https://codeql.github.com/) 
+## 2️ Security 
+- **SAST** com [CodeQL](https://codeql.github.com/) 
 - Análise de vulnerabilidades 
 ## 3 Build & Push 
 - Build de imagens **Docker** 
