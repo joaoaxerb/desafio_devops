@@ -29,6 +29,7 @@ Sistema distribuído com duas aplicações independentes que compartilham uma ca
 
 <img width="2964" height="2440" alt="image" src="https://github.com/user-attachments/assets/54a73c17-d7e3-4ccc-9a14-c8bf2b3cfab2" />
 
+<img width="3484" height="1704" alt="image" src="https://github.com/user-attachments/assets/ddff8a4d-e069-48d3-bf1a-c726034f37aa" />
 
 #  Tecnologias 
 
